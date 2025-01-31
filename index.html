@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG IN</title>
+    <link rel="icon" href="./med_img.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 97vh;
+            background-color: #f0f0f0;
+            background-image: url("./maxresdefault.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        h2{
+            text-align: center;
+        }
+        #phone{
+            width: 90%;
+        }
+        .otp-container {
+            background-color: white;
+            background-image: url("./img1.jpeg");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .otp-container h2 {
+            margin-bottom: 20px;
+        }
+        .otp-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .otp-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        .otp-container button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            body {
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                background-size: cover;
+                background-position: center;
+            }
+            .otp-container{
+                background-image: url("./img_1.jpeg");
+                background-position: center;
+                background-size: cover;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <div class="otp-container">
+        <h2>LOG IN</h2>
+        <input type="text" id="phone" placeholder="Enter your phone number" required>
+        <button onclick="generateOTP()">Generate OTP</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        
+        let otp;
+        function generateOTP() {
+            const phone = document.getElementById('phone').value;
+            if (phone === '') {
+                Swal.fire('Error', 'Please enter your phone number', 'error');
+                return;
+            }
+            otp = Math.floor(100000 + Math.random() * 900000);
+            console.log(`Sending OTP ${otp} to phone number ${phone}`);
+            Swal.fire('Your OTP', `Your OTP is: ${otp}`, 'success');
+        }
+        function verifyOTP() {
+            const userOTP = +prompt('Enter the OTP:');
+            if (userOTP == otp || userOTP!='') {
+                window.open("./med.html", "_blank");
+
+                phone.value=''
+            } else {
+                Swal.fire('Error', 'Invalid OTP', 'error');
+            }
+        }
+
+        document.querySelector('button').addEventListener('click', () => {
+                setTimeout(verifyOTP, 1000);
+        });
+
+    </script>
+</body>
+</html>
